@@ -1,0 +1,13 @@
+README.md
+setup.cfg
+setup.py
+linearmodel/__init__.py
+linearmodel/dataframe.py
+linearmodel/main.py
+linearmodel/statistics.py
+linearmodel/visualization.py
+projet.egg-info/PKG-INFO
+projet.egg-info/SOURCES.txt
+projet.egg-info/dependency_links.txt
+projet.egg-info/requires.txt
+projet.egg-info/top_level.txt
