@@ -82,7 +82,10 @@ def train(args):
     if os.path.isdir(path2):
         fichiers = os.listdir(path2)
         nombres = [int(f.split('.')[0]) for f in fichiers]
-        epoch_before = max(nombres)
+        if nombres == []:
+            epoch_before = 0
+        else:
+            epoch_before = max(nombres)
     else:
         epoch_before = 0
         
