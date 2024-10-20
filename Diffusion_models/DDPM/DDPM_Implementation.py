@@ -64,6 +64,7 @@ def train(args):
     device = args.device
     dataloader = get_data(args)
     model = UNet().to(device)
+    print(f"Les paramètres du model sont: {model.parameters()}")
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     mse = nn.MSELoss()
     diffusion = Diffusion(img_size=args.image_size, device=device)
@@ -107,7 +108,7 @@ def train(args):
             pbar.set_postfix(MSE=loss.item())
             logger.add_scalar("MSE", loss.item(), global_step=epoch * l + i)
 
-        sampled_images = diffusion.sample(model, n=8)
+        sampled_images = diffusion.sample(model, n=1)
         save_images(sampled_images, os.path.join(script_dir, "results", args.run_name, f"{epoch}.jpg"))
         torch.save(model.state_dict(), os.path.join(script_dir, "models", args.run_name, f"ckpt.pt"))
         
@@ -131,15 +132,21 @@ if __name__ == '__main__':
     launch()
     # device = "cuda"
     # model = UNet().to(device)
-    # ckpt = torch.load("./working/orig/ckpt.pt", weights_only=True)
+    # ckpt = torch.load(r"D:\github\Academic-Projects\Diffusion_models\DDPM\models\DDPM_Uncondtional\ckpt.pt", weights_only=True)
     # model.load_state_dict(ckpt)
     # diffusion = Diffusion(img_size=64, device=device)
-    # x = diffusion.sample(model, 8)
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
+    # for _ in range(20):
+    #     x = diffusion.sample(model, 1)
+    #     y = int(torch.randint(low=1,high=100000,size=(1,)))
+    #     save_images(x, os.path.join(script_dir, "sample", f"{y}.jpg"))
+        
+        
     # print(x.shape)
     # plt.figure(figsize=(32, 32))
     # plt.imshow(torch.cat([
     #     torch.cat([i for i in x.cpu()], dim=-1),
     # ], dim=-2).permute(1, 2, 0).cpu())
-    # plt.show()    
+    # plt.show()
     
     
